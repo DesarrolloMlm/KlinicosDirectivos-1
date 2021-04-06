@@ -1,0 +1,117 @@
+﻿@model IEnumerable<KlinicosDirectivos.ViewModels.Semanal>
+
+@{
+
+    ViewBag.Title = "Semanal Atenciones Policlinico";
+}
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" ; style="height:40%">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        google.charts.load('current', {packages: ['corechart', 'bar']});
+        google.charts.setOnLoadCallback(drawMultSeries);
+
+        function drawMultSeries() {
+        var data = google.visualization.arrayToDataTable([
+        ['Profesional', 'Pacientes', 'Atenciones efectivas'],
+
+        @foreach (KlinicosDirectivos.ViewModels.Semanal semanal in Model){
+
+            <text>
+
+            ['@semanal.NomyAp()', @semanal.cantidadAtenciones, @semanal.cantidadEvoluciones],
+
+            </text>
+
+        }
+
+        
+        ]);
+
+        var options = {
+        title: 'Cantidad de Atenciones Por Profesional',
+        chartArea: {width: '50%'},
+        hAxis: {
+        title: 'Atenciones',
+        minValue: 0
+        },
+        vAxis: {
+        title: 'Profesional'
+        }
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options);
+        }
+
+
+    </script>
+</head>
+
+<style>
+    .titulo {
+        word-wrap: break-word;
+        table-layout: fixed;
+        color: white;
+        font-size: 40px;
+        position: center;
+        margin-top:1%;
+    }
+    .boton {
+        background: #00b7f8;
+        border-bottom: 5px solid #0045a6;
+        border-radius: 12px;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        font-family: 'Raleway', Arial, Helvetica;
+        font-size: 20px;
+        text-align: center;
+        transition: all 0.2s ease 0s;
+        width: 120px;
+    }
+
+        .boton:hover {
+            background: #0096f7;
+        }
+
+        .boton:active {
+            box-shadow: 2px 2px 2px #777, 0px 0px 35px 0px #00b7f8;
+            border-bottom: 1px solid #0045A6;
+            text-shadow: 0px 0px 5px #fff, 0px 0px 5px #fff;
+        }
+</style>
+
+<div class="container-fluid">
+    <div class="row col-lg-offset-2" style="padding-left:20%">
+        <h2 class="titulo">Atenciones Semanales</h2>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row col-lg-offset-2">
+            <div id="chart_div" style="width:80%; height: 450px"></div>
+        </div>
+        <div class="row">
+            <div class="col-lg-offset-3">
+                <button class="boton-lista btn-lg py-3 px-4" style="grid-column-end:span 3" href="/Semanal/reporte">
+                    Anterior
+                </button>
+            </div>
+
+            <div class="col-lg-offset-5">
+                <button class="btn-lg py-3 px-4" style="grid-column-end:span 3" href="/Semanal/reporte">
+                    Siguiente
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<div>
+    <input class="boton" value="Volver" onclick="history.go(-1)" />
+</div>

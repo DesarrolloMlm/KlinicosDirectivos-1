@@ -1,0 +1,252 @@
+﻿@model KlinicosDirectivos.ViewModels.VMProfesionalDesempeño
+@{
+    ViewBag.Title = "DetalleProfesional";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" ; style="height:40%">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+</html>
+
+
+@*http://localhost:5091/Profesional/DetalleProfesional?idProfesional=32*@
+
+<style>
+
+    .card-header {
+        color: white;
+        background-image: url(https://cdn.hipwallpaper.com/i/51/44/rlZCPD.jpg);
+        background-position: bottom;
+        font-size: 50px;
+        width: 1500px;
+    }
+
+
+    .content__bio {
+        display: flex;
+        text-align: left;
+        flex-flow: column nowrap;
+        justify-content: center;
+        margin: 0;
+        background-image: url(https://i.pinimg.com/originals/22/df/03/22df0390c03d80cab2be412dcbd93b75.jpg);
+        background-position: bottom;
+    }
+
+
+
+    .container__content {
+        align-items: stretch;
+        display: grid;
+        grid-template-columns: 1fr 2fr;
+        justify-items: stretch;
+        height: 500px;
+    }
+
+    .content__profile {
+        background-image: url(https://i1.wp.com/inforprintsantander.es/wp-content/uploads/2017/07/FONDO-OSCURO-CABECERAS.jpg?ssl=1);
+        background-position: center;
+        background-size: cover;
+        color: white;
+    }
+
+    .profile {
+        text-align: center;
+    }
+
+    .content__profile img {
+        margin-top: 50px;
+        height: 20rem;
+        padding: .10rem;
+        width: 20rem;
+    }
+
+    .content__profile h1 {
+        font: 3rem Sacramento;
+        margin-top: .5em;
+    }
+
+
+
+    .content__profile p {
+        font-size: 1.1rem;
+        margin: .25rem;
+    }
+
+    .content__bio {
+        background-image: url(https://i1.wp.com/inforprintsantander.es/wp-content/uploads/2017/07/FONDO-OSCURO-CABECERAS.jpg?ssl=1);
+        background-position: bottom;
+        text-align:left;
+        color: white;
+        width: 1000px;
+    }
+
+        .content__bio hr {
+            width: 50%;
+        }
+
+    .boton {
+        background: #00b7f8;
+        border-bottom: 5px solid #0045a6;
+        border-radius: 12px;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        font-family: 'Raleway', Arial, Helvetica;
+        font-size: 20px;
+        text-align: center;
+        transition: all 0.2s ease 0s;
+        width: 120px;
+    }
+
+        .boton:hover {
+            background: #0096f7;
+        }
+
+        .boton:active {
+            box-shadow: 2px 2px 2px #777, 0px 0px 35px 0px #00b7f8;
+            border-bottom: 1px solid #0045A6;
+            text-shadow: 0px 0px 5px #fff, 0px 0px 5px #fff;
+        }
+ 
+</style>
+
+
+@*<div class="container-fluid" >
+        <div class="row">
+            <h2>DetalleProfesional</h2>
+        </div>
+    </div>*@
+
+<div class="container-fluid">
+    
+    <div class="row">       
+        <div class="col-lg-offset-1">
+            <div class="card-header">
+                <h2 style="margin-top:10px">
+                    Nombre de usuario: @Model.nombreUsuario
+                </h2>
+                <h4>
+                    Nombre y Apellido: @Model.nombre , @Model.apellido
+                </h4>
+            </div>
+            <div class="container__content">
+                <div class="content__profile">
+                    <img src="https://www.avante.es/wp-content/uploads/2018/03/471a1ad342659289433e05a611d206f8.png" alt="Usuario">
+                    <div class="profile">
+                        
+                        <div class="content__border" style="margin-top:50px"></div>
+                        
+                        <h4>DNI: @Model.dni</h4>
+                        <h4>Especialidad: @Model.especialidad</h4>
+                        <h4>Matricula: @Model.matricula</h4>
+                        <h4>Ultima Conexion: @Model.ultimaConexion</h4>
+                    </div>
+                </div>
+                <div class="content__bio" style="text-align: left">
+
+                    <h3>
+                        Cantidad de Turnos reservados: @Model.cantidadTurnosReservados  .
+                    </h3>
+                    <h3>
+                        Cantidad de Turnos espontaneos: @Model.cantidadTurnosEspontaneos .
+                    </h3>
+                    <h3>
+                        Total ingresos: @Model.totalIngresos .
+
+                    </h3>
+                    <h3>
+                        Total atendidos: @Model.totalAtendidos  .
+                    </h3>
+                    <h3>
+                        Dias de atencion: 
+                    </h3>
+                    <h3>
+                        <input id="chkLunes" type="checkbox"  readOnly="readonly" onclick="return false"  >
+                  
+                        Lunes
+                        <input id="chkMartes" type="checkbox" readOnly="readonly" onclick="return false"  >
+            
+                        Martes
+                        <input id="chkMiercoles" type="checkbox"  readOnly="readonly" onclick="return false"   >
+       
+                        Miercoles
+                        <input id="chkJueves" type="checkbox"  readOnly="readonly" onclick="return false"  >
+ 
+                        Jueves
+                        <input id="chkViernes" type="checkbox"  readOnly="readonly" onclick="return false"  >
+
+                        Viernes
+                        <input id="chkSabado"type="checkbox"  readOnly="readonly" onclick="return false"  >
+   
+                        Sabado
+                        <input id="chkDomingo" type="checkbox"  readOnly="readonly" onclick="return false"  >
+                        Domingo
+
+                    </h3>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div>
+    <input class="boton" value="Volver" onclick="history.go(-1)" />
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        var lunes = '@Model.diasAtencion["lunes"].ToString()'
+        var martes = '@Model.diasAtencion["martes"].ToString()'
+        var miercoles = '@Model.diasAtencion["miercoles"].ToString()'
+        var jueves = '@Model.diasAtencion["jueves"].ToString()'
+        var viernes = '@Model.diasAtencion["viernes"].ToString()'
+        var sabado = '@Model.diasAtencion["sabado"].ToString()'
+        var domingo = '@Model.diasAtencion["domingo"].ToString()'
+
+     
+
+        if (lunes == "True") {
+           
+            $('#chkLunes').attr("checked", "checked")
+        }
+
+        if (martes == "True") {
+           
+            $('#chkMartes').attr("checked", "checked")
+        }
+
+        if (miercoles == "True") {
+           
+            $('#chkMiercoles').attr("checked", "checked")
+        }
+
+        if (jueves == "True") {
+           
+            $('#chkJueves').attr("checked", "checked")
+        }
+
+        if (viernes == "True") {
+           
+            $('#chkViernes').attr("checked", "checked")
+        }
+
+        if (sabado == "True") {
+            $('#chkSabado').attr("checked", "checked")
+        }
+
+        if (domingo == true) {
+            $('#chkDomingo').attr("checked", "checked")
+        }
+
+
+
+    });
+
+</script>
