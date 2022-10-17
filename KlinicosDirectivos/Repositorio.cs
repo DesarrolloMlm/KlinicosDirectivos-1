@@ -125,7 +125,7 @@ namespace KlinicosDirectivos
                     break;
 
                 default:
-                    ip = "172.16.127.5";
+                    ip = "172.16.127.150";
                     break;
             }
 
