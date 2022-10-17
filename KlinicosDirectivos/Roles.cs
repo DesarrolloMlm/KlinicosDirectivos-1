@@ -13,17 +13,18 @@ namespace KlinicosDirectivos
 {
 
 using System;
+    using System.Collections.Generic;
     
-public partial class SP_OBTENER_SEMANAL_ATENCIONES_Result
+public partial class Roles
 {
 
-    public Nullable<int> idprof { get; set; }
+    public int id { get; set; }
 
-    public string primerNombre { get; set; }
+    public string rol { get; set; }
 
-    public string primerApellido { get; set; }
+    public string descripcion { get; set; }
 
-    public Nullable<int> cantAtenciones { get; set; }
+    public bool vigente { get; set; }
 
 }
 

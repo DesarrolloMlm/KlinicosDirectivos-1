@@ -309,6 +309,15 @@
           <Property Name="idProfesional" Type="int" Nullable="false" />
           <Property Name="idEspecialidad" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="rol" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="descripcion" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="vigente" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="Usuarios">
           <Key>
             <PropertyRef Name="id" />
@@ -735,18 +744,6 @@
           <Parameter Name="owner_id" Type="int" Mode="In" />
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
-        <Function Name="SP_TOTAL_EVOLUCIONES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="fechaDesde" Type="datetime" Mode="In" />
-          <Parameter Name="fechaHasta" Type="datetime" Mode="In" />
-        </Function>
-        <Function Name="SP_TOTAL_MEDICOS_ACTIVOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="fechaDesde" Type="datetime" Mode="In" />
-        </Function>
-        <Function Name="SP_TOTAL_PRACTICAS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="fechaDesde" Type="datetime" Mode="In" />
-          <Parameter Name="fechaHasta" Type="datetime" Mode="In" />
-        </Function>
-        <Function Name="SP_TOTAL_PROFESIONALES" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="split" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="delimited" Type="nvarchar(max)" Mode="In" />
@@ -778,6 +775,7 @@
           <EntitySet Name="Turno_Historicos" EntityType="Self.Turno_Historicos" Schema="GestionTurnos" store:Type="Tables" />
           <EntitySet Name="TurnosReserva" EntityType="Self.TurnosReserva" Schema="GestionTurnos" store:Type="Tables" />
           <EntitySet Name="ProfesionalesEspecialidades" EntityType="Self.ProfesionalesEspecialidades" Schema="Persona" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="Usuario" store:Type="Tables" />
           <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="Usuario" store:Type="Tables" />
           <EntitySet Name="UsuariosSectores" EntityType="Self.UsuariosSectores" Schema="Usuario" store:Type="Tables" />
           <AssociationSet Name="FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion" Association="Self.FK_Atencion_AtencionesEstados_Atencion_Atenciones_idAtencion">
@@ -1092,6 +1090,13 @@
           </AssociationSet>
           <FunctionImport Name="SP_ESPECIALIDADES_X_PROFESIONAL" EntitySet="Especialidades" ReturnType="Collection(Klinicos_BModel.Especialidades)">
           <Parameter Name="idProfesional" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Roles" EntityType="Klinicos_BModel.Roles" />
+          <FunctionImport Name="SP_OBTENER_SEMANAL_EVOLUCIONES1" ReturnType="Collection(Klinicos_BModel.SP_OBTENER_SEMANAL_EVOLUCIONES1_Result)">
+            <Parameter Name="mes" Mode="In" Type="String" />
+            <Parameter Name="anio" Mode="In" Type="String" />
+            <Parameter Name="idSector" Mode="In" Type="Int32" />
+            <Parameter Name="idEstablecimiento" Mode="In" Type="Int32" />
           </FunctionImport>
           </EntityContainer>
         <ComplexType Name="SP_OBTENER_SEMANAL_ATENCIONES_Result">
@@ -1829,6 +1834,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="rol" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="descripcion" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="vigente" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="SP_ESPECIALIDADES_X_PROFESIONAL1_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="codigo" Nullable="true" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="Boolean" Name="vigente" Nullable="false" />
+          <Property Type="String" Name="tipoEspecialidad" Nullable="true" />
+          <Property Type="String" Name="usuarioCrea" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="fechaCrea" Nullable="false" Precision="23" />
+          <Property Type="String" Name="usuarioModi" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="fechaModi" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="SP_OBTENER_SEMANAL_EVOLUCIONES1_Result">
+          <Property Type="Int32" Name="idProfesional" Nullable="false" />
+          <Property Type="Int32" Name="cantidad" Nullable="true" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1842,14 +1871,6 @@
                 <ScalarProperty Name="primerNombre" ColumnName="primerNombre" />
                 <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
                 <ScalarProperty Name="cantAtenciones" ColumnName="cantAtenciones" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="SP_OBTENER_SEMANAL_EVOLUCIONES" FunctionName="Klinicos_BModel.Store.SP_OBTENER_SEMANAL_EVOLUCIONES">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Klinicos_BModel.SP_OBTENER_SEMANAL_EVOLUCIONES_Result">
-                <ScalarProperty Name="idProfesional" ColumnName="idProfesional" />
-                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -1941,10 +1962,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="Klinicos_BModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="SP_TOTAL_EVOLUCIONES" FunctionName="Klinicos_BModel.Store.SP_TOTAL_EVOLUCIONES" />
-          <FunctionImportMapping FunctionImportName="SP_TOTAL_MEDICOS_ACTIVOS" FunctionName="Klinicos_BModel.Store.SP_TOTAL_MEDICOS_ACTIVOS" />
-          <FunctionImportMapping FunctionImportName="SP_TOTAL_PRACTICAS" FunctionName="Klinicos_BModel.Store.SP_TOTAL_PRACTICAS" />
-          <FunctionImportMapping FunctionImportName="SP_TOTAL_PROFESIONALES" FunctionName="Klinicos_BModel.Store.SP_TOTAL_PROFESIONALES" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="Klinicos_BModel.Store.sp_upgraddiagrams" />
           <FunctionImportMapping FunctionImportName="split" FunctionName="Klinicos_BModel.Store.split">
             <ResultMapping>
@@ -2315,7 +2332,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Klinicos_BModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="vigente" ColumnName="vigente" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="SP_ESPECIALIDADES_X_PROFESIONAL" FunctionName="Klinicos_BModel.Store.SP_ESPECIALIDADES_X_PROFESIONAL" />
+          <FunctionImportMapping FunctionImportName="SP_OBTENER_SEMANAL_EVOLUCIONES1" FunctionName="Klinicos_BModel.Store.SP_OBTENER_SEMANAL_EVOLUCIONES">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Klinicos_BModel.SP_OBTENER_SEMANAL_EVOLUCIONES1_Result">
+                <ScalarProperty Name="idProfesional" ColumnName="idProfesional" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_OBTENER_SEMANAL_EVOLUCIONES" FunctionName="Klinicos_BModel.Store.SP_OBTENER_SEMANAL_EVOLUCIONES" />
           </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

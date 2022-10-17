@@ -14,16 +14,12 @@ namespace KlinicosDirectivos
 
 using System;
     
-public partial class SP_OBTENER_SEMANAL_ATENCIONES_Result
+public partial class SP_OBTENER_SEMANAL_EVOLUCIONES1_Result
 {
 
-    public Nullable<int> idprof { get; set; }
+    public int idProfesional { get; set; }
 
-    public string primerNombre { get; set; }
-
-    public string primerApellido { get; set; }
-
-    public Nullable<int> cantAtenciones { get; set; }
+    public Nullable<int> cantidad { get; set; }
 
 }
 

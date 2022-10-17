@@ -47,6 +47,7 @@
         <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_Turno_General_Profesionales_AtendidoPorRefId" />
         <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_Turno_Historicos_General_Profesionales_AtendidoPorRefId" />
         <AssociationConnector Association="Klinicos_BModel.FK_GestionTurnos_TurnosReserva_GestionTurnos_Turno_idTurno" />
+        <EntityTypeShape EntityType="Klinicos_BModel.Roles" Width="1.5" PointX="0.75" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

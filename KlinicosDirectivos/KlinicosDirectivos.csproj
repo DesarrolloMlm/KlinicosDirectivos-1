@@ -222,6 +222,9 @@
     <Compile Include="split_Result.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="SP_ESPECIALIDADES_X_PROFESIONAL1_Result.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="sp_helpdiagramdefinition_Result.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
@@ -234,7 +237,13 @@
     <Compile Include="SP_OBTENER_PROFESIONALES_Result.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Roles.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="SP_OBTENER_SEMANAL_ATENCIONES_Result.cs">
+      <DependentUpon>KlinicosContext.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SP_OBTENER_SEMANAL_EVOLUCIONES1_Result.cs">
       <DependentUpon>KlinicosContext.tt</DependentUpon>
     </Compile>
     <Compile Include="SP_OBTENER_SEMANAL_EVOLUCIONES_Result.cs">
@@ -312,9 +321,7 @@
     <Content Include="Content\owl.carousel.min.css" />
     <Content Include="Content\owl.theme.default.min.css" />
     <Content Include="Content\plugins\DataTables\datatables.css" />
-    <Content Include="Content\plugins\DataTables\datatables.js" />
     <Content Include="Content\plugins\DataTables\datatables.min.css" />
-    <Content Include="Content\plugins\DataTables\datatables.min.js" />
     <Content Include="Content\style.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\flaticon\backup.txt" />
@@ -396,6 +403,7 @@
     <Content Include="Content\css\.DS_Store" />
     <Content Include="App_Browsers\qt.browser" />
     <Content Include="Content\bootstrap\.DS_Store" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dataTables.bootstrap.js" />
     <Content Include="Scripts\dataTables.bootstrap.min.js" />
@@ -461,7 +469,11 @@
     <Content Include="Views\Semanal\Inicio.cshtml" />
     <Content Include="Views\Semanal\Semanal.cshtml" />
     <Content Include="Views\Profesional\DetalleProfesional.cshtml" />
+    <Content Include="Views\Profesional\_DesempeñoProfesional.cshtml" />
     <Content Include="Views\Shared\_TablaProfesionales.cshtml" />
+    <Content Include="Views\Errores\Error505.cshtml" />
+    <Content Include="Views\Errores\Error404.cshtml" />
+    <Content Include="Views\Home\IniciarSesion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

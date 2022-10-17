@@ -148,7 +148,7 @@ namespace KlinicosDirectivos.Controllers
                 listaSemanal.Add(semanal);
             }
             return listaSemanal;
-
+                
         }
 
         private int ObtenerEvolucionesPorProfesionales(int idProfesional, DateTime fechaDesde, DateTime fechaHasta, Klinicos_BEntities entities)

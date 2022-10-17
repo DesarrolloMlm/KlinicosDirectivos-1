@@ -14,9 +14,12 @@
 </html>
 
 
-@*http://localhost:5091/Profesional/DetalleProfesional?idProfesional=32*@
-
 <style>
+
+    .check {
+        width: 17px;
+        height: 17px
+    }
 
     .card-header {
         color: white;
@@ -112,15 +115,9 @@
             border-bottom: 1px solid #0045A6;
             text-shadow: 0px 0px 5px #fff, 0px 0px 5px #fff;
         }
- 
+
 </style>
 
-
-@*<div class="container-fluid" >
-        <div class="row">
-            <h2>DetalleProfesional</h2>
-        </div>
-    </div>*@
 
 <div class="container-fluid">
     
@@ -141,50 +138,67 @@
                         
                         <div class="content__border" style="margin-top:50px"></div>
                         
-                        <h4>DNI: @Model.dni</h4>
-                        <h4>Especialidad: @Model.especialidad</h4>
-                        <h4>Matricula: @Model.matricula</h4>
-                        <h4>Ultima Conexion: @Model.ultimaConexion</h4>
+
+                        <h4 style="color:pink; font-weight: 500;">Numero de DNI: @Model.dni</h4>
+                        <h4 style="color:pink; font-weight: 500">Especialidad: <br /> @Model.especialidad</h4>
+                        <h4 style="color:pink; font-weight: 500;">Matricula: @Model.matricula</h4>
+                        <h4 style="color:pink; font-weight: 500;">Ultima Conexion: @Model.ultimaConexion</h4>
+
                     </div>
                 </div>
                 <div class="content__bio" style="text-align: left">
 
-                    <h3>
-                        Cantidad de Turnos reservados: @Model.cantidadTurnosReservados  .
+                    <h3 style="color:cyan">
+                        Cantidad de Turnos reservados:
                     </h3>
-                    <h3>
-                        Cantidad de Turnos espontaneos: @Model.cantidadTurnosEspontaneos .
+                    <h3 style="text-align:center;margin-top:0px">
+                        @Model.cantidadTurnosReservados  Turnos reservados.
                     </h3>
-                    <h3>
-                        Total ingresos: @Model.totalIngresos .
+                    
+                    <h3 style="color:cyan">
+                        Cantidad de Turnos espontaneos:
+                    </h3>
+                    <h3 style="text-align:center;margin-top:0px">
+                        @Model.cantidadTurnosEspontaneos Turnos espontaneos.
+                    </h3>
+                    
+                    <h3 style="color:cyan">
+                        Total ingresos:
+                    </h3>
+                    <h3 style="text-align:center;margin-top:0px">
+                        @Model.totalIngresos ingresos.
+                    </h3>
 
+                    <h3 style="color:cyan">
+                        Total atendidos:
                     </h3>
-                    <h3>
-                        Total atendidos: @Model.totalAtendidos  .
+                    <h3 style="text-align:center;margin-top:0px">
+                        @Model.totalAtendidos paciente atendidos.
                     </h3>
-                    <h3>
-                        Dias de atencion: 
+                    
+                    <h3 style="color:cyan">
+                        Dias de atencion:
                     </h3>
-                    <h3>
-                        <input id="chkLunes" type="checkbox"  readOnly="readonly" onclick="return false"  >
-                  
+                    <h3 style="text-align:center;margin-top:0px">
+                        <input id="chkLunes" type="checkbox" readOnly="readonly" onclick="return false" class="check">
+
                         Lunes
-                        <input id="chkMartes" type="checkbox" readOnly="readonly" onclick="return false"  >
-            
+                        <input id="chkMartes" type="checkbox" readOnly="readonly" onclick="return false" class="check">
+
                         Martes
-                        <input id="chkMiercoles" type="checkbox"  readOnly="readonly" onclick="return false"   >
-       
+                        <input id="chkMiercoles" type="checkbox" readOnly="readonly" onclick="return false" class="check">
+
                         Miercoles
-                        <input id="chkJueves" type="checkbox"  readOnly="readonly" onclick="return false"  >
- 
+                        <input id="chkJueves" type="checkbox" readOnly="readonly" onclick="return false" class="check">
+
                         Jueves
-                        <input id="chkViernes" type="checkbox"  readOnly="readonly" onclick="return false"  >
+                        <input id="chkViernes" type="checkbox" readOnly="readonly" onclick="return false" class="check">
 
                         Viernes
-                        <input id="chkSabado"type="checkbox"  readOnly="readonly" onclick="return false"  >
-   
+                        <input id="chkSabado" type="checkbox" readOnly="readonly" onclick="return false" class="check">
+
                         Sabado
-                        <input id="chkDomingo" type="checkbox"  readOnly="readonly" onclick="return false"  >
+                        <input id="chkDomingo" type="checkbox" readOnly="readonly" onclick="return false" class="check">
                         Domingo
 
                     </h3>

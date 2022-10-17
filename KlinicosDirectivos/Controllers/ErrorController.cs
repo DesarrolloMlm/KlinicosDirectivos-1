@@ -12,29 +12,34 @@ namespace KlinicosDirectivos.Controllers
         public ActionResult Index(int error = 0 )
         {
             string desc = (string)Session["desc"];
-
+            string ruta = string.Empty;
             switch (error)
             {
                 case 505:
-                    ViewBag.Title = "Ocurrio un error inesperado";
-                    ViewBag.Description = "Esto es muy vergonzoso, esperemos que no vuelva a pasar ..";
+                    ViewBag.Title = "Error 505";
+                    ViewBag.Description = "Error interno. Por favor, verifique que los datos seleccionados sean los correctos";
                     ViewBag.DescripcionAdicional = desc;
+                    ruta = "~/views/Errores/Error505.cshtml";
                     break;
 
                 case 404:
-                    ViewBag.Title = "Página no encontrada";
-                    ViewBag.Description = "La URL que está intentando ingresar no existe";
+                    ViewBag.Title = "Error 404";
+                    ViewBag.Description = "Página no encontrada. Los datos que esta buscando no se encuentran o no existen.";
                     ViewBag.DescripcionAdicional = desc;
+                    ruta = "~/views/Errores/Error404.cshtml";
                     break;
 
                 default:
-                    ViewBag.Title = "Eror en la aplicacion";
-                    ViewBag.Description = "Algo salio muy mal :( ..";
+                    ViewBag.Title = "Error en la aplicación";
+                    ViewBag.Description = "Verifique el estado de conexión de su red.";
                     ViewBag.DescripcionAdicional = desc;
+                    ruta = "~/views/Shared/Error.cshtml";
                     break;
             }
 
-            return View("~/views/Shared/Error.cshtml");
+            return View(ruta);
         }
     }
 }
+
+//Recordar apuntar los viewbags a los errores
